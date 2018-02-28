@@ -14,7 +14,7 @@ module Helpers
 
   def current_user
     if session[:user_id]
-      @current_user ||= User.where(id: session[:user_id]).first
+      @current_user ||= Customer.where(id: session[:user_id]).first
     end
   end
   

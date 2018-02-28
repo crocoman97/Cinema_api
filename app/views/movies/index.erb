@@ -1,0 +1,22 @@
+
+<% if flash.has?(:message) %>
+  <h5><%= flash[:message] %></h5>
+<% end %>
+
+<br></br>
+<% if @customer.name == "admin" %>
+  <h1>Create a New Movie <a href="/movies/new">Tweet</a></h1>
+  <br></br>
+<% end %>
+<% @movies.each do |movie| %>
+    <h4>Movie: <%= movie.title %></h4>
+
+  <h4><a href="/movies/<%= movie.id %>">Movie</a></h4>
+  <h6><%= movie.content %></h6>
+  <% if @customer.name == "admin" %>
+    <br>
+    <a href="/tweets/<%= movie.id %>/edit">Edit Content</a>
+  <% end %>
+  <br></br>
+  <p>------------------------</p>
+<% end %>
