@@ -3,7 +3,7 @@
     <title>Cinema</title>
   </head>
   <body>
-    <pre><h2>    <a href="/movies">movies</a>   <a href="/signup">Signup</a>   <a href="/login">Login</a>   <a href="/about">About Us</a> <% if current_user %> <a href="/customers/<%= @current_user.slug %>">Pofile</a><% end %></h2></pre>
+    <pre><h2><% if current_user %><%= current_user.username %><% end %>   <a href="/movies">movies</a>   <a href="/signup">Signup</a>   <a href="/login">Login</a>   <a href="/about">About Us</a> <% if current_user %> <a href="/customers/<%= @current_user.slug %>">Pofile</a>   <a href="/logout">Logout</a><% end %></h2></pre>
     <br></br>
     <%= yield %>
   </body>

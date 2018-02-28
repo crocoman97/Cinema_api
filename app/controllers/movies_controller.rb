@@ -10,7 +10,8 @@ class MoviesController < ApplicationController
   
   get '/movies/new' do 
     redirect '/login' if !logged_in?
-    if @customer.name = "admin"
+    @customer = current_user
+    if @customer.username = "admin"
       erb :'/movies/new'
     else 
       redirect '/movies'  

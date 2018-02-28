@@ -2,10 +2,9 @@
 <% if flash.has?(:message) %>
   <h5><%= flash[:message] %></h5>
 <% end %>
-
 <br></br>
-<% if @customer.name == "admin" %>
-  <h1>Create a New Movie <a href="/movies/new">Tweet</a></h1>
+<% if @customer.username == "admin" %>
+  <h1>Create a New Movie <a href="/movies/new">Create</a></h1>
   <br></br>
 <% end %>
 <% @movies.each do |movie| %>
