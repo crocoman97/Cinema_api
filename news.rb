@@ -1,0 +1,2 @@
+require 'breaking_news'
+
