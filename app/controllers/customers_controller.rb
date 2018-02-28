@@ -20,7 +20,7 @@ class CustomersController < ApplicationController
   end
   
   get '/login' do 
-    #redirect '/movies' if logged_in?
+    redirect '/movies' if logged_in?
     erb :'/customers/login'
   end 
   
