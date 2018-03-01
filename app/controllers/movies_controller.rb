@@ -38,6 +38,13 @@ class MoviesController < ApplicationController
     binding.pry
     redirect "/customers/#{@customer.slug}"
   end
+  
+  get '/movies/:id/tickets' do
+    redirect '/login' unless logged_in? 
+    redirect '/profile' unless current_user.username == "admin"
+    @movie = Movie.find(params[:id])
+    erb :'/movies/tickets/index'
+  end
     
   post '/movies' do 
     if params[:movie][:title] != "" && params[:movie][:description] != ""
