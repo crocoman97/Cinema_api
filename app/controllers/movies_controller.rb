@@ -28,12 +28,15 @@ class MoviesController < ApplicationController
     end
   end
   
-  post "/movies/resrvation" do 
+  post "/movies/:customer_id/resrvation/:movie_id" do 
+    @movie = Movie.find(params[:movie_id])
+    @customer = Customer.find(params[:customer_id])
     @ticket = Ticket.create(price: 25)
     @ticket.movie = @movie
     @ticket.customer = @customer
     @ticket.save
-    redirect '/customers/:slug'
+    binding.pry
+    redirect "/customers/#{@customer.slug}"
   end
     
   post '/movies' do 

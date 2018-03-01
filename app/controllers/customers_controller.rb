@@ -46,7 +46,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find_by_slug(params[:slug])
     if @customer.username  == "admin"
       erb :'/customers/admin'
-    else 
+    elsif @customer = current_user
       erb :'/customers/profile'
     end
   end
