@@ -1,15 +1,15 @@
-
+require 'pry'
 class MoviesController < ApplicationController
   
   get '/movies' do 
-    redirect '/login' if !logged_in?
+    redirect '/login' unless logged_in?
     @movies = Movie.all 
     @customer = current_user
     erb :'/movies/index'
   end
   
   get '/movies/new' do 
-    redirect '/login' if !logged_in?
+    redirect '/login' unless logged_in?
     @customer = current_user
     if @customer.username = "admin"
       erb :'/movies/new'
@@ -20,49 +20,52 @@ class MoviesController < ApplicationController
     
   get '/movies/:id' do
     if logged_in?
-      @movie = Movie.find_by_id(params[:id])
-      @customer = @movie.customer
+      @movie = Movie.find(params[:id])
+      @customer = current_user
       erb :'movies/show'
     else
       redirect to '/login'
     end
   end
+  
+  post '/movies/tickets' do 
+    @ticket = Ticket.create(price: 25)
+    @ticket.movie = @movie
+    @ticket.customer = @customer
+    @ticket.save
+    redirect '/profile'
+  end
     
   post '/movies' do 
-    if params[:content] != ""
-      @movie = Tweet.create(content: params[:content])
-      @customer = User.find(current_user.id)
-      @movie.user = @customer
-      @movie.save
+    if params[:movie][:title] != "" && params[:movie][:description] != ""
+      @movie = Movie.create(title: params[:movie][:title], description: params[:movie][:description])
+      @current_customer = current_user
       redirect "/movies/#{@movie.id}"
     end 
     redirect '/movies/new'
   end
     
-
-
-  
   get '/movies/:id/edit' do 
     redirect '/login' unless logged_in?
-    @movie = Tweet.find(params[:id])
-    redirect '/movies' unless @movie.customer == current_user
+    redirect '/movies' unless current_user.username == "admin"
+    @movie = Movie.find(params[:id])
     erb :'/movies/edit'
   end
   
-  patch '/movies/:id' do 
-    @movie = Tweet.find(params[:id])
-    if params[:content] != ""
-      @movie.update(content: params[:content])
+  post '/movies/:id' do 
+    binding.pry
+    @movie = Movie.find(params[:id])
+    if params[:movie][:title] != "" && params[:movie][:description] != ""
+      @movie.update(title: params[:movie][:title], description: params[:movie][:description])
       redirect "/movies/#{@movie.id}"
     end
     redirect "/movies/#{@movie.id}/edit"
   end
-  
 
   delete '/movies/:id/delete' do 
-    redirect '/' unless logged_in?
-    @movie = Tweet.find(params[:id])
-    if @movie.user == current_user
+    redirect '/login' unless logged_in?
+    @movie = Movie.find(params[:id])
+    if current_user.username == "admin"
       @movie.delete
     end
     redirect '/movies'

@@ -2,7 +2,8 @@ class Customer < ActiveRecord::Base
   
   has_secure_password
   has_many :tickets
-  has_many :movies, through: :tickets
+  has_many :movie_customers
+  has_many :movies, through: :movie_customers
   
   def slug
     self.username.split(" ").join("-")

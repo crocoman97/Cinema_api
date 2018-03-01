@@ -41,10 +41,14 @@ class CustomersController < ApplicationController
     redirect '/login'
   end
   
-    
   get '/customers/:slug' do 
+    redirect '/login' unless logged_in?
     @customer = Customer.find_by_slug(params[:slug])
-    erb :'/customers/show'
+    if @customer.username 
+      erb :'/customers/admin'
+    else 
+      erb :'/customers/profile'
+    end
   end
   
 end
