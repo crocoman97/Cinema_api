@@ -28,12 +28,12 @@ class MoviesController < ApplicationController
     end
   end
   
-  post '/movies/tickets' do 
+  post "/movies/resrvation" do 
     @ticket = Ticket.create(price: 25)
     @ticket.movie = @movie
     @ticket.customer = @customer
     @ticket.save
-    redirect '/profile'
+    redirect '/customers/:slug'
   end
     
   post '/movies' do 
