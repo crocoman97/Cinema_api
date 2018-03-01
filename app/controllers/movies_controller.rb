@@ -1,6 +1,6 @@
 require 'pry'
 class MoviesController < ApplicationController
-  
+    
   get '/movies' do 
     redirect '/login' unless logged_in?
     @movies = Movie.all 
