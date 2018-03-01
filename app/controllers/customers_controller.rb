@@ -9,7 +9,7 @@ class CustomersController < ApplicationController
   end
   
   post '/signup' do  
-    if params[:username] != "" && params[:email] != "" && params[:password] != "" && params[:name] != ""
+    if params[:username] != "" && params[:email] != "" && params[:password] != "" && params[:name] != "" 
       @customer = Customer.create(username: params[:username], email: params[:email], password: params[:password]) 
       login(@customer)
       flash[:message] = "Welcome, #{@customer.username}"
