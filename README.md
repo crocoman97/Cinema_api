@@ -13,3 +13,4 @@ Edit Movies <br>
 Delete Movies </br>
 see all tickets required by customers<br>
 can control all website<p>
+<p>Copyright (c) 2018 Abdelrauof Mohammed</p>
